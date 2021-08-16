@@ -86,6 +86,11 @@ module.exports = {
                         name: `./fonts/${filename('[ext]')}`
                     }
                 }]
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: ['babel-loader']
             }
         ]
     }
