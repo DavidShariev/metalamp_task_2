@@ -15,6 +15,14 @@ module.exports = {
         filename: `js/${filename('js')}`, //установка функции, определяющее название файла 
         path: path.resolve(__dirname, 'dist')
     },
+    devServer: {
+        historyApiFallback: true,
+        contentBase: path.resolve(__dirname, 'app'),
+        open: true,
+        compress: true,
+        hot: true,
+        port: 3000
+    },
     plugins: [
         new HTMLwebpackPlugin({ //обработка html
             template: path.resolve(__dirname, 'src/index.html'),
@@ -32,7 +40,10 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,    
+                    }, 'css-loader'],
             },
             {
                 test: /\.s[ac]ss$/i,
