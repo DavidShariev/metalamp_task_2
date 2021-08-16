@@ -8,10 +8,13 @@ const TerserWebpackPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ImageminPlugin = require("imagemin-webpack");
 const imageminGifsicle = require("imagemin-gifsicle");
+const $ = require("jquery")
 
 const isDev = process.env.NODE_ENV === 'development'; //определение режима сборки
 
 const filename = (ext) => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}` //функция, назначающая ися файла в зависимости от режима
+
+
 
 const optimization = () => {
     const configObj = {
@@ -138,15 +141,15 @@ module.exports = {
                     }
                 }]
             },
-            {
-                test: /\.(?:|woff2|woff|ttf|eot|svg)$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: `./fonts/${filename('[ext]')}`
-                    }
-                }]
-            },
+            // {
+            //     test: /\.(?:|woff2|woff|ttf|eot|svg)$/,
+            //     use: [{
+            //         loader: 'file-loader',
+            //         options: {
+            //             name: `./fonts/${filename('[ext]')}`
+            //         }
+            //     }]
+            // },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
