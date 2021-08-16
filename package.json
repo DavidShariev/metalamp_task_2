@@ -20,7 +20,9 @@
   "homepage": "https://github.com/DavidShariev/metalamp_task_2#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",
+    "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.2.0",
     "node-sass": "^6.0.1",

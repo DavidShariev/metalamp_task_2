@@ -2,6 +2,7 @@ const path = require('path') //модуль для путей
 const HTMLwebpackPlugin = require('html-webpack-plugin'); //плагин для обработки html
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //очистка файлов старой сборки
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //лоадер для сss
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development'; //определение режима сборки
 
@@ -15,12 +16,12 @@ module.exports = {
         filename: `js/${filename('js')}`, //установка функции, определяющее название файла 
         path: path.resolve(__dirname, 'dist')
     },
-    devServer: {
+    devServer: { //настройки webpack-dev-server
         historyApiFallback: true,
-        contentBase: path.resolve(__dirname, 'app'),
-        open: true,
+        contentBase: path.resolve(__dirname, 'dist'),
+        open: true, //автоматическое открытие вкладки
         compress: true,
-        hot: true,
+        hot: true, //перезагрузка сервера при изменение в модулях
         port: 3000
     },
     plugins: [
@@ -34,10 +35,19 @@ module.exports = {
         new CleanWebpackPlugin(), 
         new MiniCssExtractPlugin({ //обработка css файлов
             filename: `./styles/${filename('css')}`
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {from: path.resolve(__dirname, "src/assets/"), to: path.resolve(__dirname, "dist/assets")}
+            ]
         })
     ],
     module: { //обработка модулей
         rules: [
+            {
+                test: /\.html$/i,
+                loader: 'html-loader'
+            },
             {
                 test: /\.css$/i,
                 use: [
