@@ -77,6 +77,15 @@ module.exports = {
                         name: `./img/${filename('[ext]')}`
                     }
                 }]
+            },
+            {
+                test: /\.(?:|woff2|woff|ttf|eot|svg)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: `./fonts/${filename('[ext]')}`
+                    }
+                }]
             }
         ]
     }
