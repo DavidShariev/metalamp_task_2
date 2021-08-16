@@ -1,7 +1,7 @@
 const path = require('path') //модуль для путей
 const HTMLwebpackPlugin = require('html-webpack-plugin'); //плагин для обработки html
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const {cleanWebapckPlugin} = reqire('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //очистка файлов старой сборки
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //лоадер для сss
 
 const isDev = process.env.NODE_ENV === 'development'; //определение режима сборки
 
@@ -23,6 +23,21 @@ module.exports = {
                 collapseWhitespace: !isDev
             }
         }),
-        new CleanWebpackPlugin(),
-    ]
+        new CleanWebpackPlugin(), 
+        new MiniCssExtractPlugin({ //обработка css файлов
+            filename: `./styles/${filename('css')}`
+        })
+    ],
+    module: { //обработка модулей
+        rules: [
+            {
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+            }
+        ]
+    }
 }
