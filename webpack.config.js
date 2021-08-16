@@ -14,7 +14,8 @@ module.exports = {
     entry: './index.js', //вход
     output: { //выход
         filename: `js/${filename('js')}`, //установка функции, определяющее название файла 
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: ''
     },
     devServer: { //настройки webpack-dev-server
         historyApiFallback: true,
@@ -57,7 +58,25 @@ module.exports = {
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+                use: [{
+                    loader: MiniCssExtractPlugin.loader,
+                    options: {
+                        publicPath: (resourcePath, context) => {
+                            return path.relative(path.dirname(resourcePath), context) + "/";
+                        },
+                    }
+                },
+                'css-loader',
+                'sass-loader'],
+            },
+            {
+                test: /\.(?:|fig|png|jpg|jpeg|svg)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: `./img/${filename('[ext]')}`
+                    }
+                }]
             }
         ]
     }
