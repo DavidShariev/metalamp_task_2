@@ -1,4 +1,5 @@
 const path = require('path') //модуль для путей
+const HTMLwebpackPlugin = require('html-webpack-plugin'); //плагин для обработки html
 
 const isDev = process.env.NODE_ENV === 'development'; //определение режима сборки
 
@@ -11,5 +12,14 @@ module.exports = {
     output: { //выход
         filename: `js/${filename('js')}`, //установка функции, определяющее название файла 
         path: path.resolve(__dirname, 'dist')
-    }
+    },
+    plugins: [
+        new HTMLwebpackPlugin({
+            template: path.resolve(__dirname, 'src/index.html'),
+            filename: 'index.html',
+            minify: {
+                collapseWhitespace: !isDev
+            }
+        })
+    ]
 }
