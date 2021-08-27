@@ -1,2 +1,19 @@
 header.header 
-    img(src=require('../../assets/img/logo.png'), alt="")
+    .container.header-wrapper 
+        .header__logo 
+            img(src=require("../../assets/img/logo.svg"), alt="")
+        ul.header__nav
+            li.header__nav-item
+                a(href="#") О нас
+            li.header__nav-item 
+                a(href="#") Услуги
+            li.header__nav-item 
+                a(herf="#") Вакансии
+            li.header__nav-item 
+                a(herf="#") Вакансии
+            li.header__nav-item 
+                a(herf="#") Вакансии
+            li.header__nav-item 
+                button.btn-type-one войти
+            li.header__nav-item   
+                button.btn-type-one.btn-type-one--accent Зарегистрироваться
