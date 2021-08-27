@@ -17,6 +17,7 @@
   "bugs": {
     "url": "https://github.com/DavidShariev/metalamp_task_2/issues"
   },
+  "browserslist": "> 0.25%, not dead",
   "homepage": "https://github.com/DavidShariev/metalamp_task_2#readme",
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -39,8 +40,12 @@
     "jquery": "^3.6.0",
     "mini-css-extract-plugin": "^2.2.0",
     "node-sass": "^6.0.1",
+    "normalize.css": "^8.0.1",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
+    "pug": "^3.0.2",
+    "pug-loader": "^2.4.0",
     "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1",
     "stylelint": "^13.13.1",
     "stylelint-declaration-block-no-ignored-properties": "^2.4.0",
     "stylelint-order": "^4.1.0",

@@ -1,160 +1,112 @@
-const path = require('path') //модуль для путей
-const HTMLwebpackPlugin = require('html-webpack-plugin'); //плагин для обработки html
-const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //очистка файлов старой сборки
-const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //лоадер для сss
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserWebpackPlugin = require('terser-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const ImageminPlugin = require("imagemin-webpack");
-const imageminGifsicle = require("imagemin-gifsicle");
-const $ = require("jquery")
 
-const isDev = process.env.NODE_ENV === 'development'; //определение режима сборки
+const { dirname } = require('path');
+const path = require('path');
+const webpack = require('webpack');
+const { ModuleFilenameHelpers } = require('webpack');
+const HTMLwebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
-const filename = (ext) => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}` //функция, назначающая ися файла в зависимости от режима
+const mode = process.env.NODE_ENV
+console.log(mode);
 
-
-
-const optimization = () => {
-    const configObj = {
-        splitChunks: {
-            chunks: 'all'
-        }
-    };
-
-    if(!isDev){
-        configObj.minimizer = [
-            new OptimizeCssAssetsPlugin(),
-            new TerserWebpackPlugin()
-        ]
-    }
-
-    return configObj;
+dist = {
+    'dist': path.join(__dirname, 'dist/'),
+    'pages': path.join(__dirname, 'dist/pages/'),
+    'scripts': path.join(__dirname, 'dist/scritps/'),
+    'assets': path.join(__dirname, 'dist/assets/'),
 }
-
-const plugins = () => {
-    const basePlugins = [
-        new HTMLwebpackPlugin({ //обработка html
-            template: path.resolve(__dirname, 'src/index.html'),
-            filename: 'index.html',
-            minify: {
-                collapseWhitespace: !isDev
-            }
-        }),
-        new CleanWebpackPlugin(),
-        new MiniCssExtractPlugin({ //обработка css файлов
-            filename: `./styles/${filename('css')}`
-        }),
-        new CopyWebpackPlugin({
-            patterns: [
-                { from: path.resolve(__dirname, "src/assets/"), to: path.resolve(__dirname, "dist/assets") }
-            ]
-        })
-    ];
-
-    if(!isDev){
-        basePlugins.push(
-            new ImageminPlugin({
-                bail: false, // Ignore errors on corrupted images
-                cache: true,
-                imageminOptions: {
-                    // Before using imagemin plugins make sure you have added them in `package.json` (`devDependencies`) and installed them
-
-                    // Lossless optimization with custom option
-                    // Feel free to experiment with options for better result for you
-                    plugins: [
-                        ["gifsicle", { interlaced: true }],
-                        ["jpegtran", { progressive: true }],
-                        ["optipng", { optimizationLevel: 5 }],
-                        [
-                            "svgo",
-                            {
-                                plugins: [
-                                    {
-                                        removeViewBox: false
-                                    }
-                                ]
-                            }
-                        ]
-                    ]
-                }
-            })
-        )
-    }
-
-    return basePlugins;
+src = {
+    'src': path.join(__dirname, 'src/'),
+    'pages': path.join(__dirname, 'src/pug/'),
+    'scripts': path.join(__dirname, 'src/scripts/'),
+    'styles': path.join(__dirname, 'src/styles/'),
+    'assets': path.join(__dirname, 'src/assets/')
 }
 
 module.exports = {
-    mode: 'development', //режим сборки
-    context: path.resolve(__dirname, 'src'), //определение контекста для путей
-    entry: './index.js', //вход
-    output: { //выход
-        filename: `js/${filename('js')}`, //установка функции, определяющее название файла 
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: ''
+    experiments: {
+        asset: true
     },
-    devServer: { //настройки webpack-dev-server
-        historyApiFallback: true,
-        contentBase: path.resolve(__dirname, 'dist'),
-        open: true, //автоматическое открытие вкладки
-        compress: true,
-        hot: true, //перезагрузка сервера при изменение в модулях
-        port: 3000
+    context: src.src,
+    mode: mode,
+    devtool: mode === 'development' ? false : "source-map",
+    entry: {
+        main: ['./scripts/main.js'],
+        pageOne: ['./scripts/page_one/page_one.js'],
+        pageTwo: ['./scripts/page_two/page_two.js'],
     },
-    optimization: optimization(),
-    devtool: !isDev ? false : "source-map",
-    plugins: plugins(),
-    module: { //обработка модулей
+    output: {
+        clean: true,
+        filename: mode === 'development' ? 'scripts/[name].js' : 'scripts/[name].[contenthash].js',
+        path: dist.dist,
+        publicPath: dist.dist,
+        assetModuleFilename: '[path][name][ext]'
+    },
+    module: {
         rules: [
             {
-                test: /\.html$/i,
-                loader: 'html-loader'
+                test: /\.(html)$/,
+                use: ['html-loader']
+            },
+            {
+                test: /\.m?js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
             },
             {
                 test: /\.css$/i,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,    
-                    }, 'css-loader'],
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: [{
-                    loader: MiniCssExtractPlugin.loader,
-                    options: {
-                        publicPath: (resourcePath, context) => {
-                            return path.relative(path.dirname(resourcePath), context) + "/";
-                        },
-                    }
-                },
-                'css-loader',
-                'sass-loader'],
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader"
+                ],
             },
             {
-                test: /\.(?:|fig|png|jpg|jpeg|svg)$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: `./img/${filename('[ext]')}`
-                    }
-                }]
+                test: /\.pug$/i,
+                use: ['pug-loader']
             },
-            // {
-            //     test: /\.(?:|woff2|woff|ttf|eot|svg)$/,
-            //     use: [{
-            //         loader: 'file-loader',
-            //         options: {
-            //             name: `./fonts/${filename('[ext]')}`
-            //         }
-            //     }]
-            // },
             {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: ['babel-loader']
-            }
-        ]
-    }
+                test: /\.(jpg|png|svg|ttf|woff|eot)$/,
+                type: 'asset',
+            },
+        ],
+    },
+    plugins: [
+        new HTMLwebpackPlugin({
+            template: src.pages + 'index.pug',
+            filename: 'index.html',
+            minify: !(mode === "development"),
+            title: "index",
+            chunks: ['main']
+        }),
+        new HTMLwebpackPlugin({
+            template: src.pages + 'page_one.pug',
+            filename: 'pages/page_one.html',
+            minify: !(mode === "development"),
+            chunks: ['main', 'pageOne']
+        }),
+        new HTMLwebpackPlugin({
+            template: src.pages + 'page_two.pug',
+            filename: 'pages/page_two.html',
+            minify: !(mode === "development"),
+            chunks: ['main', 'pageTwo']
+        }),
+        new webpack.ProvidePlugin({
+            '$': 'jquery',
+        })
+    ],
+    optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin({
+            extractComments: false,
+        })],
+    },
 }

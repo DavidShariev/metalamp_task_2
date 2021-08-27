@@ -1,7 +1,17 @@
-@import url("./_fonts.scss");
+@import './fonts.scss';
 
 body{
+    background-color: black;
     color: white;
-    background-color: none;
-    font-family: "Open Sans";
+}
+.header{
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    color: black;
+}
+.footer{
+    width: 100%;
+    height: 100px;
+    background-color: gray;
 }

@@ -1,7 +1,17 @@
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../assets/fonts/opensans-semibold-webfont.woff2');
+}
 
-@font-face{
-        font-family: "Open Sans";
-        src: url("../assets/opensans-semibold-webfont.woff2");
-        font-weight: normal;
-        font-style: normal;
+body{
+    font-family: 'Open Sans';
+}
+
+
+h1{
+    color: inherit;
+
+    span{
+        color: chocolate;
+    }
 }
