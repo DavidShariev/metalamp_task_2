@@ -32,8 +32,8 @@ module.exports = {
     // devtool: mode === 'development' ? false : "source-map",
     entry: {
         main: ['./scripts/main.js'],
-        pageOne: ['./scripts/page_one/page_one.js'],
-        pageTwo: ['./scripts/page_two/page_two.js'],
+        registration: ['./scripts/registration/registration.js'],
+        signIn: ['./scripts/signIn/signIn.js'],
     },
     output: {
         clean: true,
@@ -87,16 +87,16 @@ module.exports = {
             chunks: ['main']
         }),
         new HTMLwebpackPlugin({
-            template: src.pages + 'page_one.pug',
-            filename: 'pages/page_one.html',
+            template: src.pages + 'registration.pug',
+            filename: 'pages/registration.html',
             minify: !(mode === "development"),
-            chunks: ['main', 'pageOne']
+            chunks: ['main', 'registration']
         }),
         new HTMLwebpackPlugin({
-            template: src.pages + 'page_two.pug',
-            filename: 'pages/page_two.html',
+            template: src.pages + 'sign_in.pug',
+            filename: 'pages/sign_in.html',
             minify: !(mode === "development"),
-            chunks: ['main', 'pageTwo']
+            chunks: ['main', 'signIn']
         }),
         new webpack.ProvidePlugin({
             '$': 'jquery',

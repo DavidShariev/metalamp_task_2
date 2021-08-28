@@ -15,6 +15,8 @@ header.header
             li.header__nav-item 
                 +link-list("Соглашения", "О сервисе", "Наша команда", "Вакансии", "Инвесторы")
             li.header__nav-item 
-                +btn_type_one('', 'Войти')
+                a(href="/pages/sign_in.html") 
+                    +btn_type_one('', 'Войти')
             li.header__nav-item   
-                +btn_type_one('btn-type-one--accent', 'Зарегистрироваться')
+                a(href="/pages/registration.html")
+                    +btn_type_one('btn-type-one--accent', 'Зарегистрироваться')

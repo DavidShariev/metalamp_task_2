@@ -1,6 +1,10 @@
 mixin btn_type_one(className, text)
     button(class="btn-type-one " + className)= text
 
+mixin input-type-one(className, text)
+    .input-wrapper
+        input(class="input-type-one " + className, placeholder=text)
+
 mixin link-list(text, ...links_text)
     a(href="#" class="link-list")= text
         ul

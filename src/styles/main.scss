@@ -8,7 +8,7 @@
     width: 100%;
     max-width: 1200px;
     margin: auto;
-    padding: 15px 20px;
+    padding: 0 20px;
 }
 
 ul, li{
@@ -31,6 +31,12 @@ a{
 }
 a:hover{
     color: rgba(31,32,62, 1);
+}
+
+article{
+    font-size: 14px;
+    line-height: 24px;
+    color: rgba(31, 32, 65, 0.75);
 }
 
 button{
@@ -58,6 +64,31 @@ button{
     background: #fff;
 }
 
+.input-type-one{
+    box-sizing: i;
+    width: 100%;
+    padding: 9px 15px 9px 15px;
+    border: 1px solid rgba(31, 32, 65, 0.25);
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 24px;
+
+    
+}
+.input-wrapper{
+    position: relative;
+
+    &::before{
+        position: absolute;
+        right: 0;
+        top: 0;
+        content: url("../assets/img/arrow-right.svg");
+        width: 44px;
+        text-align: center;
+        padding-top: 13px;
+    }
+}
+
 .link-list{
     position: relative;
     padding-right: 24px;
@@ -69,6 +100,11 @@ button{
         display: none;
         opacity: 0;
         transition-duration: .6s;
+
+        li{
+            padding-top: 10px;
+        }
+        
     }
 
     &::before{
