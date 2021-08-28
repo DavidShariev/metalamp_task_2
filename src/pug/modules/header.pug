@@ -1,19 +1,20 @@
+
 header.header 
     .container.header-wrapper 
         .header__logo 
-            img(src=require("../../assets/img/logo.svg"), alt="")
+            img(src=require("../assets/img/logo.svg"), alt="")
         ul.header__nav
             li.header__nav-item
                 a(href="#") О нас
             li.header__nav-item 
-                a(href="#") Услуги
+                +link-list("Услуги", "О сервисе", "Наша команда", "Вакансии", "Инвесторы")
             li.header__nav-item 
-                a(herf="#") Вакансии
+                a(href="#") Вакансии
             li.header__nav-item 
-                a(herf="#") Вакансии
+                a(href="#") Новости
             li.header__nav-item 
-                a(herf="#") Вакансии
+                +link-list("Соглашения", "О сервисе", "Наша команда", "Вакансии", "Инвесторы")
             li.header__nav-item 
-                button.btn-type-one войти
+                +btn_type_one('', 'Войти')
             li.header__nav-item   
-                button.btn-type-one.btn-type-one--accent Зарегистрироваться
+                +btn_type_one('btn-type-one--accent', 'Зарегистрироваться')

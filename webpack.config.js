@@ -29,7 +29,7 @@ module.exports = {
     },
     context: src.src,
     mode: mode,
-    devtool: mode === 'development' ? false : "source-map",
+    // devtool: mode === 'development' ? false : "source-map",
     entry: {
         main: ['./scripts/main.js'],
         pageOne: ['./scripts/page_one/page_one.js'],
@@ -39,7 +39,6 @@ module.exports = {
         clean: true,
         filename: mode === 'development' ? 'scripts/[name].js' : 'scripts/[name].[contenthash].js',
         path: dist.dist,
-        publicPath: dist.dist,
         assetModuleFilename: '[path][name][ext]'
     },
     module: {
@@ -75,7 +74,7 @@ module.exports = {
             },
             {
                 test: /\.(jpg|png|svg|ttf|woff|eot)$/,
-                type: 'asset/resource',
+                type: 'asset',
             },
         ],
     },

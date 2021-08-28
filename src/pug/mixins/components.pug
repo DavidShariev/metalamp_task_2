@@ -1,0 +1,9 @@
+mixin btn_type_one(className, text)
+    button(class="btn-type-one " + className)= text
+
+mixin link-list(text, ...links_text)
+    a(href="#" class="link-list")= text
+        ul
+            each val in links_text 
+                li(class="link-list__item")= val
+                    
