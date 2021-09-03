@@ -1,13 +1,34 @@
-mixin btn_type_one(className, text)
-    button(class="btn-type-one " + className)= text
+mixin btn-type-one(className, text)
+    button(class="btn-type-one " + className type="button")&attributes(attributes)= text
 
-mixin input-type-one(className, text)
-    .input-wrapper
-        input(class="input-type-one " + className, placeholder=text)
+mixin btn-type-two(className, text)
+    button(class="btn-type-two " + className type="button")&attributes(attributes)= text
+
+mixin input-type-one(className, text, url)
+    .input-type-one__wrapper
+        input(class="input-type-one " + className, placeholder=text)&attributes(attributes)
+mixin input-type-two(className, text)
+    input(class="input-type-two " + className, placeholder=text)&attributes(attributes)
+mixin input-type-three(className, titletext, text)
+    h3(class="input-title")= titletext
+    input(class="input-type-two " + className, placeholder=text)&attributes(attributes)
+
+mixin radiobox(className, text, radioname)
+    .radiobox-wrapper
+        input( class=""+className name=radioname type="radio")
+        label()= text
+
+mixin switcher(className, text)
+    .switcher-wrapper 
+        button( class="switcher " + className type="button")
+        if(text != "")
+            label( class="switcher-text")= text
+
 
 mixin link-list(text, ...links_text)
     a(href="#" class="link-list")= text
         ul
             each val in links_text 
                 li(class="link-list__item")= val
+
                     

@@ -1,0 +1,25 @@
+extends layout/main_layout.pug
+
+block head
+    title Toxin Landing Page
+block content 
+    img.first-screen__background(src=require("../assets/img/background-2.png"), alt="")
+    form.landing-page-form(action="/room") 
+        h1.landing-page-form__title Найдем номер под ваши пожелания
+        .landing-page-form__dates
+            .input-wrapper
+                h3(class="input-title") Прибытие
+                input(class="input-type-two landing-page-form__date" placeholder="дд.мм.гггг")
+                img(src=require("../assets/img/arrow-down.svg"), alt="")
+            .input-wrapper
+                h3(class="input-title") Выезд
+                input(class="input-type-two landing-page-form__date" placeholder="дд.мм.гггг")
+                img(src=require("../assets/img/arrow-down.svg"), alt="")
+        .input-wrapper 
+            h3(class="input-title") гости
+            input(class="input-type-two landing-page-form__date", type="text", placeholder="Сколько гостей")
+            img(src=require("../assets/img/arrow-down.svg"), alt="")
+        
+        +btn-type-two("landing-page-form__submit landing-page-form__element", "войти")(type="submit")
+    
+    span.landing-page__text Лучшие номера для вашей работы, отдыха и просто вдохновения

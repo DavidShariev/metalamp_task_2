@@ -34,6 +34,7 @@ module.exports = {
         main: ['./scripts/main.js'],
         registration: ['./scripts/registration/registration.js'],
         signIn: ['./scripts/signIn/signIn.js'],
+        landingPage: ['./scripts/landing_page/landing_page.js']
     },
     output: {
         clean: true,
@@ -74,7 +75,7 @@ module.exports = {
             },
             {
                 test: /\.(jpg|png|svg|ttf|woff|eot)$/,
-                type: 'asset',
+                type: 'asset/inline',
             },
         ],
     },
@@ -97,6 +98,12 @@ module.exports = {
             filename: 'pages/sign_in.html',
             minify: !(mode === "development"),
             chunks: ['main', 'signIn']
+        }),
+        new HTMLwebpackPlugin({
+            template: src.pages + 'landing_page.pug',
+            filename: 'pages/landing_page.html',
+            minify: !(mode === "development"),
+            chunks: ['main', 'landingPage']
         }),
         new webpack.ProvidePlugin({
             '$': 'jquery',

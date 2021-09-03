@@ -4,3 +4,11 @@ block head
     title Toxin Sign In
 block content 
     img.first-screen__background(src=require("../assets/img/background-4.png"), alt="")
+    form.signin-form(action="#")
+        h1.signin-form__title Войти
+        +input-type-two("signin-form__email signin-form__element", "Email")
+        +input-type-two("signin-form__password signin-form__element", "Пароль")
+        +btn-type-two("signin-form__submit signin-form__element", "войти")(type="submit")
+        .signin-form__bottom 
+            p Нет аккаунта на Toxin?
+            +btn-type-one("", "создать")

@@ -1,0 +1,33 @@
+
+.landing-page-form{
+    position: absolute;
+    top: 18vh;
+    max-width: 380px;
+    padding: 40px 30px 30px 30px;
+    border-radius: 4px;
+    background-color: #fff;
+
+    &__dates{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .input-wrapper:first-child{
+            margin-right: 10px;
+        }
+        .input-wrapper:last-child{
+            margin-left: 10px;
+        }
+    }
+
+    &__submit{
+        margin-top: 30px;
+    }
+}
+
+.landing-page__text{
+    position: absolute;
+    width: 300px;
+    right: 20vh;
+    bottom: 18px;
+}

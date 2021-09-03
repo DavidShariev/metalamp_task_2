@@ -3,5 +3,20 @@ extends layout/main_layout.pug
 block head
     title Toxin Registration
 block content 
-    h1 Hello, world! I'm 
-        span PAGE ONE.
+    img.first-screen__background(src=require("../assets/img/background-4.png"), alt="")
+    form.signin-form(action="gdsa")
+        h1.signin-form__title Регистрация аккаунта
+        +input-type-two("signin-form__email signin-form__element", "Имя")
+        +input-type-two("signin-form__password signin-form__element", "Фамилия")
+        .signin-form__gender 
+            +radiobox("signin-form__gender-radiobox", "Мужчина", "gender")
+            +radiobox("signin-form__gender-radiobox", "Женщина", "gender")
+        +input-type-three("singin-form__date signin-form__element", "дата рождения", "ДД.ММ.ГГГГ")(type="date")
+        +input-type-three("signin-form__email signin-form__element", "данные для входа в сервис", "Email")
+        +input-type-two("signin-form__password signin-form__element", "Имя")
+        +switcher("signin-form__notif", "получать спецпредложения")
+
+        +btn-type-two("signin-form__submit signin-form__element", "войти")(type="submit")
+        .signin-form__bottom 
+            p Нет аккаунта на Toxin?
+            +btn-type-one("", "создать")

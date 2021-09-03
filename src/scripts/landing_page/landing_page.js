@@ -1,0 +1,1 @@
+import landingPage from "../../styles/pages/landing_page.scss";

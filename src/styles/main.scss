@@ -2,6 +2,7 @@
 
 *{
     box-sizing: border-box;
+    outline: none;
 }
 
 .container{
@@ -13,6 +14,7 @@
 .first-screen{
     width: 100%;
     height: 100vh;
+    padding-top: 74px;
 
     .first-screen__background{
         position: absolute;
@@ -63,8 +65,14 @@ button{
     color: #BC9CFF;
     cursor: pointer;
     transition-duration: .6s;
+    text-align: center;
 
 }
+input{
+    cursor: pointer;
+    transition-duration: .4s;
+}
+
 .btn-type-one{
     padding: 8px 19px 9px 19px;
     border: 2px solid;
@@ -78,19 +86,51 @@ button{
     color: #BC9CFF;
     background: #fff;
 }
+.btn-type-two{
+    width: 100%;
+    position: relative;
+    padding: 14px 44px 15px 44px;
+    border: none;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #BC9CFF 0%, #8BA4F9 100%);
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 15px;
 
+    &::before{
+        content: url("../assets/img/arrow-right-white.svg");
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        text-align: center;
+        right: 0;
+        top: 12px;
+    }
+}
+
+.input-wrapper{
+    position: relative;
+}
+.input-wrapper img{
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}
+.input-wrapper input{
+    width: 100%;
+}
 .input-type-one{
-    box-sizing: i;
     width: 100%;
     padding: 9px 15px 9px 15px;
     border: 1px solid rgba(31, 32, 65, 0.25);
     border-radius: 4px;
     font-size: 14px;
     line-height: 24px;
-
-    
 }
-.input-wrapper{
+.input-type-one__wrapper{
     position: relative;
 
     &::before{
@@ -103,6 +143,107 @@ button{
         padding-top: 13px;
     }
 }
+.input-type-two{
+    padding: 9px 15px 9px 15px;
+    border: 1px solid rgba(31, 32, 65, 0.25);
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 24px;
+}
+.input-title{
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.input-type-one:hover,
+.input-type-two:hover,
+.input-type-three:hover{
+    border: 1px solid rgba(31, 32, 65, 1);
+}
+
+.radiobox-wrapper{ 
+    display: flex;
+}
+.radiobox-wrapper input{
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    
+}
+.radiobox-wrapper label{
+    position: relative;
+    display: inline-block;
+    margin-top: -3px;
+    margin-left: 10px;
+    font-size: 14px;
+    line-height: 24px;
+    color: rgba(31, 32, 65, 0.75);
+}
+.radiobox-wrapper label::before{
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: -30px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #BC9CFF;
+    border-radius: 10px;
+    z-index: -1;
+}
+.radiobox-wrapper label::after{
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: -26px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(180deg, #BC9CFF 0%, #8BA4F9 100%);
+    z-index: -1;
+    border-radius: 50%;
+    opacity: 0;
+    transition-duration: .2s;
+}
+.radiobox-wrapper input:checked + label::after{
+    opacity: 1;
+}
+
+
+.switcher-wrapper{
+    font-size: 14px;
+    line-height: 24px;
+    color: rgba(31, 32, 65, 0.75);
+    display: flex;
+}
+.switcher-wrapper:hover .switcher{
+    border: 1px solid rgba(31, 32, 65, 1);
+}
+.switcher{
+    display: inline;
+    position: relative;
+    width: 40px;
+    height: 20px;
+    border: 1px solid rgba(31, 32, 65, 0.25);
+    border-radius: 10px;
+    margin-right: 20px;
+}
+.switcher::before{
+    content: "";
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background: rgba(31, 32, 65, 0.25);
+    left: 3px;
+    top: 3px;
+    transition-duration: .4s;
+}
+.switcher-wrapper--checked .switcher::before{
+    left: auto;
+    right: 3px;
+}
+.switcher-text{
+    margin-top: -3px;
+}
 
 .link-list{
     position: relative;
@@ -110,14 +251,21 @@ button{
 
     ul{
         position: absolute;
+        background-color: #fff;
         top: 100%;
-        left: 0;
+        left: -15px;
+        padding: 5px 0;
         display: none;
         opacity: 0;
         transition-duration: .6s;
+        box-shadow: 2px 2px 4px #aeaeae;
 
         li{
-            padding-top: 10px;
+            padding: 5px 15px;
+            transition-duration: .4s;
+        }
+        li:hover{
+            background-color: #aeaeae;
         }
         
     }

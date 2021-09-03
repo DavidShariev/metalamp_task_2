@@ -1,0 +1,41 @@
+.signin-form{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    max-width: 380px;
+    margin: auto;
+    transform: translateY(-50%);
+    padding: 40px 30px;
+    padding-bottom: 34px;
+    background-color: #fff;
+    border-radius: 4px;
+
+    &__element{
+        width: 100%;
+    }
+
+    &__bottom{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__title{
+        margin-bottom: 20px;
+    }
+    &__submit{
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+
+    .input-type-two{
+        margin-bottom: 10px;
+    }
+    
+    &__gender{
+        display: flex;
+    }
+    &__gender .radiobox-text{
+        margin-right: 20px;
+    }
+}
