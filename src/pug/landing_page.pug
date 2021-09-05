@@ -9,12 +9,33 @@ block content
         .landing-page-form__dates
             .input-wrapper
                 h3(class="input-title") Прибытие
-                input(class="input-type-two landing-page-form__date" placeholder="дд.мм.гггг")
+                input(class="input-type-two landing-page-form__date landing-page-form__date--start" placeholder="дд.мм.гггг")
                 img(src=require("../assets/img/arrow-down.svg"), alt="")
             .input-wrapper
                 h3(class="input-title") Выезд
-                input(class="input-type-two landing-page-form__date" placeholder="дд.мм.гггг")
+                input(class="input-type-two landing-page-form__date landing-page-form__date--end" placeholder="дд.мм.гггг")
                 img(src=require("../assets/img/arrow-down.svg"), alt="")
+
+            .date-panel
+                .date-panel__header 
+                    button(type="button").date-panel__header-btn.date-panel__header-btn--left
+                        img(src=require("../assets/img/arrow-right.svg"), alt="")
+                    h2.date-panel__header-title Август 2019
+                    button(type="button").date-panel__header-btn.date-panel__header-btn--right
+                        img(src=require("../assets/img/arrow-right.svg"), alt="")
+                .date-panel__week
+                    .date-panel__week-item Пн 
+                    .date-panel__week-item Вт
+                    .date-panel__week-item Ср
+                    .date-panel__week-item Чт
+                    .date-panel__week-item Пт
+                    .date-panel__week-item Сб
+                    .date-panel__week-item Вс
+                .date-panel__days 
+                    .date-panel__days-item test
+                .date-panel__btns 
+                    button.date-panel__btns-clear очистить
+                    button.date-panel__btns-access применить
         .input-wrapper 
             h3(class="input-title") гости
             input(class="input-type-two landing-page-form__date", type="text", placeholder="Сколько гостей")
