@@ -14,6 +14,8 @@ var prevMonthBtn = datePanel.querySelector(".date-panel__header-btn--left");
 datePanelTitle.textContent = `${monthList[aMonth]} ${date.getFullYear()}`;
 datePanel.dataset.month = aMonth
 datePanel.dataset.year = aYear;
+datePanel.startDateInput = document.querySelector(".landing-page-form__date--start");
+datePanel.endDateInput = document.querySelector(".landing-page-form__date--end");
 
 nextMonthBtn.addEventListener("click", monthUp);
 function monthUp(){
@@ -49,7 +51,8 @@ function monthDown(){
     makeDayList();
 }
 function makeDayList(){
-    console.log("makeDayList Started")
+    console.log(datePanel.startDate, "startDate");
+    console.log(datePanel.endDate, "endDate")
     let oldElements = datePanel.querySelectorAll(".date-panel__days-item")
     oldElements.forEach( el => {
         el.remove();
@@ -72,6 +75,10 @@ function makeDayList(){
         dayCell.classList.add("date-panel__days-item")
         dayCell.textContent = day.getDate();
 
+        if(day >= datePanel.startDate && day <= datePanel.endDate){
+            dayCell.classList.add("date-panel__days-item--inrange")
+        }
+  
         datePanel.querySelector(".date-panel__days").append(dayCell);
     }
     for(let i = firstMonthDay.getDate(); i < lastMonthDay.getDate() + 1; i++){
@@ -81,8 +88,9 @@ function makeDayList(){
         let dayCell = document.createElement('div');
         dayCell.classList.add("date-panel__days-item")
         dayCell.textContent = day.getDate();
-
+        
         if (datePanel.startDate){
+            
             if(datePanel.startDate.getDate() == day.getDate() &&
                datePanel.startDate.getMonth() == day.getMonth() &&
                datePanel.startDate.getFullYear() == day.getFullYear()){
@@ -91,11 +99,16 @@ function makeDayList(){
                 
         }
         if (datePanel.endDate){
+            
             if (datePanel.endDate.getDate() == day.getDate() &&
                 datePanel.endDate.getMonth() == day.getMonth() &&
                 datePanel.endDate.getFullYear() == day.getFullYear()) {
-                dayCell.classList.add("date-panel__days-item--start")
+                dayCell.classList.add("date-panel__days-item--end")
             }
+        }
+
+        if (day >= datePanel.startDate && day <= datePanel.endDate) {
+            dayCell.classList.add("date-panel__days-item--inrange")
         }
 
         datePanel.querySelector(".date-panel__days").append(dayCell);
@@ -109,6 +122,10 @@ function makeDayList(){
         let dayCell = document.createElement('div');
         dayCell.classList.add("date-panel__days-item")
         dayCell.textContent = day.getDate();
+
+        if (day >= datePanel.startDate && day <= datePanel.endDate) {
+            dayCell.classList.add("date-panel__days-item--inrange")
+        }
 
         datePanel.querySelector(".date-panel__days").append(dayCell);
     }
@@ -158,19 +175,23 @@ function dateInputKeyDown(event){
         let year = +text.slice(6)
 
         if(isNaN(day) || isNaN(month) || isNaN(year)){
-            alert("невозможно преобразить в дату " + text)
+            alert("невозможно преобразить в дату: " + text)
+            this.value = "";
             return null
         }
         if(day > 31 || day < 1){
-            alert("Ошибка даты, некоректный день")
+            alert("Ошибка даты, некоректный день: " + text)
+            this.value = ""
             return null;
         }
         if(month > 12 || month < 1){
-            alert("Ошибка даты, некоректый месяц");
+            alert("Ошибка даты, некоректый месяц: " + text);
+            this.value = "";
             return null;
         }
         if(year > aYear + 2){
             alert(`Ошибка даты, невозможно забронировать номер более чем на год вперед`)
+            this.value = ""
             return null;
         }
 
@@ -181,19 +202,45 @@ function dateInputKeyDown(event){
             return null;
         }
 
-        console.log(datePanel.toggle)
         if(datePanel.toggle === "start"){
             datePanel.startDate = date;
-            datePanel.dataset.year = year
-            datePanel.dataset.month = month - 1;
-        }else if(datePanel.toggle === "end"){
-            console.log("dateEnd")
-            datePanel.endDate = date;
-            datePanel.dataset.year = year
-            datePanel.dataset.month = month - 1;
-        }
-        makeDayList();
+            if(datePanel.endDate){
+                if(date <= datePanel.endDate){
+                    datePanel.toggle = "end";
+                }else if(date > datePanel.endDate){
+                    this.value = datePanel.endDateInput.value;
+                    datePanel.endDateInput.value = text;
 
+                    datePanel.toggle = "start";
+
+                    datePanel.startDate = datePanel.endDate;
+                    datePanel.endDate = date;
+                    
+                }
+            }
+
+        }else if(datePanel.toggle === "end"){
+            datePanel.endDate = date;
+            if(datePanel.startDate){
+                if(date >= datePanel.startDate){
+                    datePanel.toggle = "start";
+                }else if(date < datePanel.startDate){
+                    
+                    this.value = datePanel.startDateInput.value;
+                    datePanel.startDateInput.value = text;
+
+                    datePanel.toggle = "end";
+
+                    datePanel.endDate = datePanel.startDate;
+                    datePanel.startDate = date
+                    
+                }
+            }
+            
+        }
+        datePanel.dataset.year = year
+        datePanel.dataset.month = month - 1;
+        makeDayList();
 
     }
 
