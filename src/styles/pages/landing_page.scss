@@ -143,14 +143,17 @@
             background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
             opacity: 1;
         }
-        .data-panel__days-item--end, .data-panel__days-item--start{
+
+        &-item--start, &-item--end{
             color: #fff;
-        }
-        .data-panel__days-item--end::before, .data-panel__days-item--start::before{
+        }        
+        &-item--start::before, &-item--end::before,
+        &-item--start:hover::before, &-item--end:hover::before{
             background: linear-gradient(180deg, #BC9CFF 0%, #8BA4F9 100%); 
             opacity: 1;
-            color: #fff;
         }
+        
+
     }
     
     &__btns{
@@ -175,3 +178,11 @@
     }
 }
 
+.date-panel__days-item--start, .date-panel__days-item--end{
+    color: #fff;
+}
+.date-panel__days-item--start::before, .date-panel__days-item--start::before{
+    background: linear-gradient(180deg, #BC9CFF 0%, #8BA4F9 100%); 
+    opacity: 1;
+    color: #fff;
+}
